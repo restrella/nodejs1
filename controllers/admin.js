@@ -4,13 +4,10 @@ exports.getProducts = (req, res, next) => {
   //   console.log("shop.js", adminData.products);
   //   res.sendFile(path.join(rootDir, "views", "shop.html"));
   Product.fetchAll((products) => {
-    res.render("shop", {
+    res.render("admin/products", {
       prods: products,
       pageTitle: "Shop",
-      path: "/",
-      activeShop: true,
-      hasProducts: products.length > 0,
-      productsCSS: true,
+      path: "/admin/products",
     });
   });
 };
@@ -18,19 +15,20 @@ exports.getProducts = (req, res, next) => {
 exports.getAddProduct = (req, res, next) => {
   //   console.log("productsget", products);
   //   res.sendFile(path.join(rootDir, "views", "add-product.html"));
-  res.render("add-product", {
+  res.render("admin/add-product", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
-    activeAddProduct: true,
-    formsCSS: true,
-    productsCSS: true,
   });
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const products = new Product(req.body.title);
+  const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
+  const price = req.body.price;
+
+  const product = new Product(title, imageUrl, description, price);
   //   products.push({ title: req.body.title });
-  products.save();
-  console.log(products);
+  product.save();
   res.redirect("/");
 };
