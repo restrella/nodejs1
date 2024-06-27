@@ -1,32 +1,32 @@
-const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
+// const mongodb = require("mongodb");
+// const MongoClient = mongodb.MongoClient;
 
-let _db;
+// let _db;
 
-const mongoConnect = (callback) => {
-  MongoClient.connect(
-    "mongodb+srv://rain77:pyTau8nOTHya4u2E@cluster0.km8ou3n.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0"
-  )
-    .then((client) => {
-      console.log("Connected!");
-      _db = client.db();
-      callback();
-    })
-    .catch((err) => {
-      console.log(err);
-      throw err;
-    });
-};
+// const mongoConnect = (callback) => {
+//   MongoClient.connect(
+//     "mongodb+srv://rain77:pyTau8nOTHya4u2E@cluster0.km8ou3n.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0"
+//   )
+//     .then((client) => {
+//       console.log("Connected!");
+//       _db = client.db();
+//       callback();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       throw err;
+//     });
+// };
 
-const getDb = () => {
-  if (_db) {
-    return _db;
-  }
-  throw "No database found!";
-};
+// const getDb = () => {
+//   if (_db) {
+//     return _db;
+//   }
+//   throw "No database found!";
+// };
 
-exports.mongoConnect = mongoConnect;
-exports.getDb = getDb;
+// exports.mongoConnect = mongoConnect;
+// exports.getDb = getDb;
 
 //pyTau8nOTHya4u2E
 //rain77

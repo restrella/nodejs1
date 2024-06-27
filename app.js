@@ -7,7 +7,8 @@ const errorController = require("./controllers/error");
 
 const User = require("./models/user");
 
-const mongoConnect = require("./util/database").mongoConnect;
+// const mongoConnect = require("./util/database").mongoConnect;
+const mongoose = require('mongoose')
 
 const app = express();
 
@@ -17,12 +18,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  User.findById("667d02e83480557b1263cbbf")
-    .then((user) => {
-      req.user = new User(user.name, user.email, user.cart, user._id);
-      next();
-    })
-    .catch((err) => console.log(err));
+  // User.findById("667d02e83480557b1263cbbf")
+  //   .then((user) => {
+  //     req.user = new User(user.name, user.email, user.cart, user._id);
+  //     next();
+  //   })
+  //   .catch((err) => console.log(err));
+  next()
 });
 
 app.use("/admin", adminRouter);
@@ -30,8 +32,10 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
   // const user = new User("roger", "roger@test.com", { items: [] });
   // user.save();
-  app.listen(3000);
-});
+mongoose
+  .connect('mongodb+srv://rain77:pyTau8nOTHya4u2E@cluster0.km8ou3n.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0')
+  .then(result => {
+    app.listen(3000);
+  })
